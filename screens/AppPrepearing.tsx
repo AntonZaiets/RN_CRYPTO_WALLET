@@ -2,7 +2,6 @@ import React from 'react';
 import {
   SafeAreaView,
   Text,
-  View,
   TouchableOpacity,
   StyleSheet,
   ImageBackground,
@@ -10,15 +9,21 @@ import {
 import { LinearGradient } from 'expo-linear-gradient';
 import BackgroundImage from '../assets/images/splash.png';
 
-const Home = () => {
+const AppPrepearing = () => {
   return (
     <ImageBackground source={BackgroundImage} style={styles.background}>
       <SafeAreaView style={styles.container}>
         <TouchableOpacity style={styles.button}>
           <LinearGradient
-            colors={['#000', '#000']}
+            colors={['#1C1924', '#1C1924']}
             style={styles.buttonGradient}>
-            <Text style={styles.buttonText}>Import Using Seed Phrase</Text>
+            <Text style={styles.buttonText}>
+              <LinearGradient
+                colors={['#6EE7B7', '#3B82F6', '#9333EA']}
+                style={styles.textGradient}>
+                Import Using Seed Phrase
+              </LinearGradient>
+            </Text>
           </LinearGradient>
         </TouchableOpacity>
 
@@ -43,8 +48,8 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
+    justifyContent: 'flex-end',
   },
   title: {
     fontSize: 40,
@@ -70,6 +75,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
+  textGradient: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
 });
 
-export default Home;
+export default AppPrepearing;
