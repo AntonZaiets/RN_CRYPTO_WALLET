@@ -17,13 +17,7 @@ const AppPrepearing = () => {
           <LinearGradient
             colors={['#1C1924', '#1C1924']}
             style={styles.buttonGradient}>
-            <Text style={styles.buttonText}>
-              <LinearGradient
-                colors={['#6EE7B7', '#3B82F6', '#9333EA']}
-                style={styles.textGradient}>
-                Import Using Seed Phrase
-              </LinearGradient>
-            </Text>
+            <Text style={styles.buttonText}>Import Using Seed Phrase</Text>
           </LinearGradient>
         </TouchableOpacity>
 
@@ -50,15 +44,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-end',
-  },
-  title: {
-    fontSize: 40,
-    fontWeight: 'bold',
-    color: '#ffffff',
-    marginBottom: 50,
-    fontFamily: 'Arial',
-    textAlign: 'center',
-    letterSpacing: 1.5,
   },
   button: {
     width: '80%',
