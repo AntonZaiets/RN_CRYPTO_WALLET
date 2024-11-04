@@ -1,28 +1,12 @@
-import {Stack, Tabs} from "expo-router";
-import Home from './home'
-import Index from './index'
+import { Stack } from 'expo-router';
 
-function RootLayout() {
-    return (
-        <Stack>
-            <Stack.Screen name="index"/>
-            <Stack.Screen name="home"/>
-        </Stack>
-    );
-}
+const RootLayout = () => {
+  return (
+    <Stack>
+      <Stack.Screen name="index" options={{ headerShown: false }} />
+      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+    </Stack>
+  );
+};
 
-function MainTabsNavigator() {
-    return (
-        <Tabs>
-            <Tabs.Screen
-                name="Dashboard"
-                options={{headerShown: false}}
-            />
-            <Tabs.Screen
-                name="Portfolio"
-                options={{headerShown: false}}
-            />
-        </Tabs>
-    );
-}
-
+export default RootLayout;
