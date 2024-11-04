@@ -10,9 +10,9 @@ const Tab = createBottomTabNavigator();
 export default function Index() {
     return (
         <Tab.Navigator>
-            <Tab.Screen name="Home" component={HomeScreen}/>
-            <Tab.Screen name="Settings" component={SettingsScreen}/>
-            <Tab.Screen name="Swap" component={SwapScreen}/>
+            <Tab.Screen name="Home" component={HomeScreen} options={{ headerShown: false }}/>
+            <Tab.Screen name="Settings" component={SettingsScreen} options={{ headerShown: false }}/>
+            <Tab.Screen name="Swap" component={SwapScreen} options={{ headerShown: false }}/>
         </Tab.Navigator>
     );
 }
