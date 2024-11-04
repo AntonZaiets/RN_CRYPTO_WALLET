@@ -1,18 +1,18 @@
-import {Text, TouchableOpacity, View} from "react-native";
-import {router} from "expo-router";
+import React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import HomeScreen from '@/screens/Home';
+import SettingsScreen from '@/screens/Settings';
+import SwapScreen from '@/screens/Swap';
+
+const Tab = createBottomTabNavigator();
 
 export default function Index() {
-  return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <TouchableOpacity onPress={() => {router.push('./home')}}>
-          <Text>Next tab</Text>
-      </TouchableOpacity>
-    </View>
-  );
+    return (
+        <Tab.Navigator>
+            <Tab.Screen name="Home" component={HomeScreen}/>
+            <Tab.Screen name="Settings" component={SettingsScreen}/>
+            <Tab.Screen name="Swap" component={SwapScreen}/>
+        </Tab.Navigator>
+    );
 }
