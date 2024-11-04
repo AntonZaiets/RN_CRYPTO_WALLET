@@ -1,10 +1,10 @@
 import React from 'react'
-import {Text, View} from 'react-native'
+import {SafeAreaView, Text, View} from 'react-native'
 const Home = () => {
     return(
-        <View style={{justifyContent: 'center', alignItems: 'center'}}>
+        <SafeAreaView style={{justifyContent: 'center', alignItems: 'center'}}>
             <Text>Home</Text>
-        </View>
+        </SafeAreaView>
     );
 }
 
