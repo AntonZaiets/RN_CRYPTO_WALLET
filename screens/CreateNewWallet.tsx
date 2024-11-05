@@ -21,7 +21,7 @@ const CreateNewWallet = () => {
 
   const togglePasswordVisibility = () => setPasswordVisible(!passwordVisible);
 
-  const handlePasswordChange = password => {
+  const handlePasswordChange = (password : any) => {
     setNewPassword(password);
     setPasswordStrength(password.length >= 8 ? 'Good' : 'Weak');
   };
