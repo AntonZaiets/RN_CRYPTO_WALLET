@@ -8,8 +8,11 @@ import {
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import BackgroundImage from '../assets/images/splash.png';
+import { useNavigation } from '@react-navigation/native';
 
 const AppPrepearing = () => {
+  const navigation = useNavigation();
+
   return (
     <ImageBackground source={BackgroundImage} style={styles.background}>
       <SafeAreaView style={styles.container}>
@@ -21,7 +24,9 @@ const AppPrepearing = () => {
           </LinearGradient>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate('CreateNewWallet')}>
           <LinearGradient
             colors={['#6EE7B7', '#3B82F6', '#9333EA']}
             start={{ x: 0, y: 0 }}
