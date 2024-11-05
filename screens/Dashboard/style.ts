@@ -59,7 +59,12 @@ export const styles = () =>
       marginTop: 5,
     },
     tokenList: {
-      flex: 1,
+      height: '25%',
+      backgroundColor: '#131118',
+      padding: 10,
+      borderTopLeftRadius: 40,
+      borderTopRightRadius: 40,
+      margin: 0,
     },
     tokenItem: {
       flexDirection: 'row',
@@ -104,8 +109,7 @@ export const styles = () =>
       fontSize: 18,
     },
     buttonContainer: {
-      flex: 1,
-      justifyContent: 'flex-end',
+      justifyContent: 'center',
       alignItems: 'center',
     },
     buttonGradient: {
