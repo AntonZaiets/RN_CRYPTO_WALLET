@@ -26,9 +26,12 @@ const CreateNewWallet = () => {
   const [isFaceIdEnabled, setIsFaceIdEnabled] = useState(false);
   const [isTermsChecked, setIsTermsChecked] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [passwordSecondVisible, setPasswordSecondVisible] = useState(false);
   const [passwordStrength, setPasswordStrength] = useState('Weak');
   const [openMainModal, setOpenMainModel] = useState(false);
   const togglePasswordVisibility = () => setPasswordVisible(!passwordVisible);
+  const togglePasswordSecondVisibility = () =>
+    setPasswordSecondVisible(!passwordSecondVisible);
 
   const handlePasswordChange = (password: any) => {
     setNewPassword(password);
@@ -111,15 +114,15 @@ const CreateNewWallet = () => {
               style={styles.input}
               placeholder="Confirm Password"
               placeholderTextColor="#666"
-              secureTextEntry={!passwordVisible}
+              secureTextEntry={!passwordSecondVisible}
               onChangeText={setConfirmPassword}
               value={confirmPassword}
             />
             <TouchableOpacity
-              onPress={togglePasswordVisibility}
+              onPress={togglePasswordSecondVisibility}
               style={styles.icon}>
               <Ionicons
-                name={passwordVisible ? 'eye-off' : 'eye'}
+                name={passwordSecondVisible ? 'eye-off' : 'eye'}
                 size={24}
                 color="#ccc"
               />
