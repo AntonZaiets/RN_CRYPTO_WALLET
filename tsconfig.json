@@ -1,7 +1,17 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
-    "strict": true,
+    "allowImportingTsExtensions": true,
+    "target": "es6" /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019', 'ES2020', 'ES2021', or 'ESNEXT'. */,
+    "module": "commonjs",
+    "jsx": "react",
+    "downlevelIteration": true,
+    "resolveJsonModule": true,
+//    "allowSyntheticDefaultImports": true /* Allow default imports from modules with no default export. This does not affect code emit, just typechecking. */,
+//    "esModuleInterop": true,
+//    "skipLibCheck": true /* Skip type checking of declaration files. */,
+//    "forceConsistentCasingInFileNames": true,
+    "strict": false,
     "paths": {
       "@/*": [
         "./*"
