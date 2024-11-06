@@ -5,6 +5,7 @@ import HomeScreen from '../screens/Dashboard/index';
 import SettingsScreen from '../screens/Settings';
 import SwapScreen from '../screens/Swap';
 import AppPrepearing from '../screens/AppPrepearing';
+import SeedPhrase from '../screens/SeedPhrase.tsx';
 import CreateNewWallet from '../screens/CreateNewWallet';
 import { Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
@@ -86,6 +87,11 @@ export default function Index() {
       <Stack.Screen
         name="AppPrepearing"
         component={AppPrepearing}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="SeedPhrase"
+        component={SeedPhrase}
         options={{ headerShown: false }}
       />
       <Stack.Screen
