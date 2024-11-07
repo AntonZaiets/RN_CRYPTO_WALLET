@@ -17,7 +17,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { ArrowBackSvg } from '@/assets/svg/arrowBack';
 import { useNavigation } from '@react-navigation/native';
 import { authenticateWithFaceID } from '@/components/faceId';
-import MaskedView from '@react-native-masked-view/masked-view';
+import { BlurView } from 'expo-blur';
 
 const CreateNewWallet = () => {
   const navigation = useNavigation();
@@ -29,11 +29,14 @@ const CreateNewWallet = () => {
   const [passwordSecondVisible, setPasswordSecondVisible] = useState(false);
   const [passwordStrength, setPasswordStrength] = useState('Weak');
   const [openMainModal, setOpenMainModel] = useState(false);
+  const [laterModal, setLaterModal] = useState(false);
+  const [laterSecondModal, setLaterSecondModal] = useState(false);
+
   const togglePasswordVisibility = () => setPasswordVisible(!passwordVisible);
   const togglePasswordSecondVisibility = () =>
     setPasswordSecondVisible(!passwordSecondVisible);
 
-  const handlePasswordChange = (password: any) => {
+  const handlePasswordChange = password => {
     setNewPassword(password);
     setPasswordStrength(password.length >= 8 ? 'Good' : 'Weak');
   };
@@ -68,7 +71,6 @@ const CreateNewWallet = () => {
             <View style={styles.progressBar} />
             <View style={styles.progressCircleInactive} />
           </View>
-
           <Text style={styles.stepText}>1/3</Text>
         </View>
 
@@ -154,6 +156,7 @@ const CreateNewWallet = () => {
             </Text>
           </TouchableOpacity>
         </View>
+
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={styles.button}
@@ -193,13 +196,15 @@ const CreateNewWallet = () => {
           </TouchableOpacity>
         </View>
       </View>
+
+      {/* Main Modal */}
       {openMainModal && (
         <Modal
           animationType="slide"
           transparent={true}
           visible={openMainModal}
           onRequestClose={() => setOpenMainModel(false)}>
-          <View style={styles.modalContent}>
+          <View style={styles.mainModalContent}>
             <Text style={styles.modalText}>Secure Your Wallet</Text>
             <ImageBackground
               resizeMode="stretch"
@@ -209,7 +214,7 @@ const CreateNewWallet = () => {
             </ImageBackground>
             <Text style={styles.mainModalDescription}>
               Don't risk losing your funds. Protect your wallet by saving your{' '}
-              <Text style={{ color: '#0B6FFB', fontWeight: 500 }}>
+              <Text style={{ color: '#0B6FFB', fontWeight: '500' }}>
                 Seed Phrase
               </Text>{' '}
               in a place you trust.
@@ -218,19 +223,127 @@ const CreateNewWallet = () => {
               It's the only way to recover your wallet if you get locked out of
               the app or get a new device.
             </Text>
-            <MaskedView
-              style={styles.maskedView}
-              maskElement={
-                <Text style={styles.buttonModalText}>Remind Me Later</Text>
-              }>
-              <LinearGradient
-                colors={['#6EE7B7', '#3B82F6', '#9333EA']}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 0 }}
-                style={styles.gradientText}
-              />
-            </MaskedView>
+            <TouchableOpacity
+              style={styles.remindMeLater}
+              onPress={() => {
+                setLaterModal(true);
+              }}>
+              <Text
+                style={[
+                  styles.buttonText,
+                  { color: '#9333EA', fontWeight: '700' },
+                ]}>
+                Remind Me Later
+              </Text>
+            </TouchableOpacity>
+            <View style={styles.modalButtonContainer}>
+              <TouchableOpacity
+                style={styles.buttonModal}
+                onPress={() => setOpenMainModel(false)}>
+                <LinearGradient
+                  colors={['#6EE7B7', '#3B82F6', '#9333EA']}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 1 }}
+                  style={styles.buttonGradient}>
+                  <Text style={styles.buttonText}>Next</Text>
+                </LinearGradient>
+              </TouchableOpacity>
+            </View>
           </View>
+          {laterModal || laterSecondModal && (
+            <>
+              <BlurView intensity={50} style={styles.blurBg} />
+              <Modal
+                animationType="slide"
+                transparent={true}
+                visible={laterModal}
+                onRequestClose={() => setLaterModal(false)}>
+                <View style={styles.modalContent}>
+                  <Text style={styles.modalText}>What is a "Seed Phrase"</Text>
+                  <Text style={styles.modalDescription}>
+                    A seed phrase is a set of twelve words that contains all the
+                    information about your wallet, including your funds. It's
+                    like a secret code used to access your entire wallet.
+                    {`\n\n`}
+                    You must keep your seed phrase secret and safe. If someone
+                    gets your seed phrase, they'll gain control over your
+                    accounts.
+                    {`\n\n`}
+                    Save it in a place where only you can access it.{`\n`}
+                    If you lose it, not even MetaMask can help you recover it.
+                  </Text>
+                  <View style={styles.modalButtonContainer}>
+                    <TouchableOpacity
+                      style={styles.buttonModal}
+                      onPress={() => {
+                        setLaterModal(false);
+                        setLaterSecondModal(true);
+                      }}>
+                      <LinearGradient
+                        colors={['#6EE7B7', '#3B82F6', '#9333EA']}
+                        start={{ x: 0, y: 0 }}
+                        end={{ x: 1, y: 1 }}
+                        style={styles.buttonGradient}>
+                        <Text style={styles.buttonText}>Understood</Text>
+                      </LinearGradient>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </Modal>
+              <Modal
+                  animationType="slide"
+                  transparent={true}
+                  visible={laterSecondModal}
+                  onRequestClose={() => setLaterSecondModal(false)}>
+                <View style={styles.modalContent}>
+                  <Text style={styles.modalText}>Skip Account Security?</Text>
+                  <TouchableOpacity
+                      onPress={() => setIsTermsChecked(!isTermsChecked)}
+                      style={styles.checkboxContainer}>
+                    <Ionicons
+                        name={isTermsChecked ? 'checkbox' : 'square-outline'}
+                        size={24}
+                        color={isTermsChecked ? '#6B50E1' : '#ccc'}
+                    />
+                    <Text style={styles.checkboxText}>
+                      I dunderstand that if i lose mt seed phrase i will not be able to access my wallet.
+                      <Text style={styles.learnMore}>Learn more</Text>
+                    </Text>
+                  </TouchableOpacity>
+                  <View style={styles.modalButtonsContainer}>
+                    <TouchableOpacity
+                        style={styles.buttonsModal}
+                        onPress={() => {
+                          setLaterModal(false);
+                          setLaterSecondModal(true);
+                        }}>
+                      <LinearGradient
+                          colors={['#6EE7B7', '#3B82F6', '#9333EA']}
+                          start={{ x: 0, y: 0 }}
+                          end={{ x: 1, y: 1 }}
+                          style={styles.buttonGradient}>
+                        <Text style={styles.buttonText}>Understood</Text>
+                      </LinearGradient>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.buttonsModal}
+                        onPress={() => {
+                          setLaterModal(false);
+                          setLaterSecondModal(true);
+                        }}>
+                      <LinearGradient
+                          colors={['#6EE7B7', '#3B82F6', '#9333EA']}
+                          start={{ x: 0, y: 0 }}
+                          end={{ x: 1, y: 1 }}
+                          style={styles.buttonGradient}>
+                        <Text style={styles.buttonText}>Understood</Text>
+                      </LinearGradient>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </Modal>
+            </>
+          )}
         </Modal>
       )}
     </SafeAreaView>
@@ -238,6 +351,10 @@ const CreateNewWallet = () => {
 };
 
 const styles = StyleSheet.create({
+  blurBg: {
+    width: '100%',
+    height: '100%',
+  },
   container: {
     backgroundColor: '#09080C',
     padding: 20,
@@ -330,6 +447,19 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     overflow: 'hidden',
   },
+  buttonModal: {
+    width: '80%',
+    borderRadius: 30,
+    marginBottom: 80,
+    overflow: 'hidden',
+    marginHorizontal: 20,
+  },
+  buttonsModal: {
+    width: '45%',
+    borderRadius: 30,
+    marginBottom: 80,
+    overflow: 'hidden',
+  },
   buttonText: {
     color: '#fff',
     fontSize: 18,
@@ -380,7 +510,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
-  modalContent: {
+  mainModalContent: {
     width: '100%',
     backgroundColor: '#131118',
     borderRadius: 10,
@@ -388,6 +518,15 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     height: '85%',
+  },
+  modalContent: {
+    width: '100%',
+    backgroundColor: '#131118',
+    borderRadius: 10,
+    alignItems: 'center',
+    position: 'absolute',
+    bottom: 0,
+    //height: '85%',
   },
   modalText: {
     marginTop: 20,
@@ -420,23 +559,29 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     textAlign: 'center',
   },
-  gradientTextContainer: {
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 5,
+  modalDescription: {
+    fontSize: 14,
+    lineHeight: 24,
+    fontWeight: 400,
+    color: '#FFFFFF',
+    marginHorizontal: 20,
+    marginBottom: 20,
   },
-  buttonModalText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: 'black', // может быть любым, главное, чтобы не было "transparent"
-    textAlign: 'center',
+  modalButtonContainer: {
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 20,
   },
-  maskedView: {
-    height: 24, // подберите высоту, соответствующую размеру текста
-    marginTop: 20,
+  remindMeLater: {
+    marginVertical: 50,
   },
-  gradientText: {
-    flex: 1, // растягивает градиент на всю ширину
+  modalButtonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    paddingHorizontal: 20,
+    marginTop: 80
   },
 });
 
