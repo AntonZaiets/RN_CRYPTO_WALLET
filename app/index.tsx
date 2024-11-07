@@ -5,7 +5,7 @@ import HomeScreen from '../screens/Dashboard/index';
 import SettingsScreen from '../screens/Settings';
 import SwapScreen from '../screens/Swap';
 import AppPrepearing from '../screens/AppPrepearing';
-import SeedPhrase from '../screens/SeedPhrase.tsx';
+import SeedPhrase from '../screens/SeedPhrase/SeedPhrase.tsx';
 import CreateNewWallet from '../screens/CreateNewWallet';
 import { Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
