@@ -197,7 +197,6 @@ const CreateNewWallet = () => {
         </View>
       </View>
 
-      {/* Main Modal */}
       {openMainModal && (
         <Modal
           animationType="slide"
@@ -250,7 +249,7 @@ const CreateNewWallet = () => {
               </TouchableOpacity>
             </View>
           </View>
-          {laterModal || laterSecondModal && (
+          {laterModal && (
             <>
               <BlurView intensity={50} style={styles.blurBg} />
               <Modal
@@ -290,60 +289,63 @@ const CreateNewWallet = () => {
                   </View>
                 </View>
               </Modal>
-              <Modal
-                  animationType="slide"
-                  transparent={true}
-                  visible={laterSecondModal}
-                  onRequestClose={() => setLaterSecondModal(false)}>
-                <View style={styles.modalContent}>
-                  <Text style={styles.modalText}>Skip Account Security?</Text>
-                  <TouchableOpacity
-                      onPress={() => setIsTermsChecked(!isTermsChecked)}
-                      style={styles.checkboxContainer}>
-                    <Ionicons
-                        name={isTermsChecked ? 'checkbox' : 'square-outline'}
-                        size={24}
-                        color={isTermsChecked ? '#6B50E1' : '#ccc'}
-                    />
-                    <Text style={styles.checkboxText}>
-                      I dunderstand that if i lose mt seed phrase i will not be able to access my wallet.
-                      <Text style={styles.learnMore}>Learn more</Text>
-                    </Text>
-                  </TouchableOpacity>
-                  <View style={styles.modalButtonsContainer}>
-                    <TouchableOpacity
-                        style={styles.buttonsModal}
-                        onPress={() => {
-                          setLaterModal(false);
-                          setLaterSecondModal(true);
-                        }}>
-                      <LinearGradient
-                          colors={['#6EE7B7', '#3B82F6', '#9333EA']}
-                          start={{ x: 0, y: 0 }}
-                          end={{ x: 1, y: 1 }}
-                          style={styles.buttonGradient}>
-                        <Text style={styles.buttonText}>Understood</Text>
-                      </LinearGradient>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={styles.buttonsModal}
-                        onPress={() => {
-                          setLaterModal(false);
-                          setLaterSecondModal(true);
-                        }}>
-                      <LinearGradient
-                          colors={['#6EE7B7', '#3B82F6', '#9333EA']}
-                          start={{ x: 0, y: 0 }}
-                          end={{ x: 1, y: 1 }}
-                          style={styles.buttonGradient}>
-                        <Text style={styles.buttonText}>Understood</Text>
-                      </LinearGradient>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              </Modal>
             </>
           )}
+          {laterSecondModal && (<>
+            <BlurView intensity={50} style={styles.blurBg} />
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={laterSecondModal}
+                onRequestClose={() => setLaterSecondModal(false)}>
+              <View style={styles.modalContent}>
+                <Text style={styles.modalText}>Skip Account Security?</Text>
+                <TouchableOpacity
+                    onPress={() => setIsTermsChecked(!isTermsChecked)}
+                    style={styles.checkboxContainer}>
+                  <Ionicons
+                      name={isTermsChecked ? 'checkbox' : 'square-outline'}
+                      size={24}
+                      color={isTermsChecked ? '#6B50E1' : '#ccc'}
+                  />
+                  <Text style={styles.checkboxText}>
+                    I dunderstand that if i lose mt seed phrase i will not be able to access my wallet.
+                    <Text style={styles.learnMore}>Learn more</Text>
+                  </Text>
+                </TouchableOpacity>
+                <View style={styles.modalButtonsContainer}>
+                  <TouchableOpacity
+                      style={styles.buttonsModal}
+                      onPress={() => {
+                        setLaterModal(false);
+                        setLaterSecondModal(false);
+                      }}>
+                    <LinearGradient
+                        colors={['#6EE7B7', '#3B82F6', '#9333EA']}
+                        start={{ x: 0, y: 0 }}
+                        end={{ x: 1, y: 1 }}
+                        style={styles.buttonGradient}>
+                      <Text style={styles.buttonText}>Understood</Text>
+                    </LinearGradient>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                      style={styles.buttonsModal}
+                      onPress={() => {
+                        setLaterModal(false);
+                        setLaterSecondModal(false);
+                      }}>
+                    <LinearGradient
+                        colors={['#6EE7B7', '#3B82F6', '#9333EA']}
+                        start={{ x: 0, y: 0 }}
+                        end={{ x: 1, y: 1 }}
+                        style={styles.buttonGradient}>
+                      <Text style={styles.buttonText}>Understood</Text>
+                    </LinearGradient>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </Modal>
+          </>)}
         </Modal>
       )}
     </SafeAreaView>
