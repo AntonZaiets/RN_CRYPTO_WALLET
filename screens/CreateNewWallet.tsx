@@ -18,6 +18,7 @@ import { ArrowBackSvg } from '@/assets/svg/arrowBack';
 import { useNavigation } from '@react-navigation/native';
 import { authenticateWithFaceID } from '@/components/faceId';
 import { BlurView } from 'expo-blur';
+import { InformationSvg } from '@/assets/svg/information.tsx';
 
 const CreateNewWallet = () => {
   const navigation = useNavigation();
@@ -30,6 +31,7 @@ const CreateNewWallet = () => {
   const [passwordSecondVisible, setPasswordSecondVisible] = useState(false);
   const [passwordStrength, setPasswordStrength] = useState('Weak');
   const [openMainModal, setOpenMainModel] = useState(false);
+  const [openSecondMainModal, setOpenSecondMainModal] = useState(false);
   const [laterModal, setLaterModal] = useState(false);
   const [laterSecondModal, setLaterSecondModal] = useState(false);
 
@@ -197,7 +199,6 @@ const CreateNewWallet = () => {
           </TouchableOpacity>
         </View>
       </View>
-
       {openMainModal && (
         <Modal
           animationType="slide"
@@ -214,9 +215,14 @@ const CreateNewWallet = () => {
             </ImageBackground>
             <Text style={styles.mainModalDescription}>
               Don't risk losing your funds. Protect your wallet by saving your{' '}
-              <Text style={{ color: '#0B6FFB', fontWeight: '500' }}>
-                Seed Phrase
-              </Text>{' '}
+              <TouchableOpacity
+                onPress={() => {
+                  setLaterModal(true);
+                }}>
+                <Text style={{ color: '#0B6FFB', fontWeight: '500' }}>
+                  Seed Phrase
+                </Text>
+              </TouchableOpacity>{' '}
               in a place you trust.
             </Text>
             <Text style={styles.mainModalDescription}>
@@ -226,7 +232,7 @@ const CreateNewWallet = () => {
             <TouchableOpacity
               style={styles.remindMeLater}
               onPress={() => {
-                setLaterModal(true);
+                setLaterSecondModal(true);
               }}>
               <Text
                 style={[
@@ -239,7 +245,10 @@ const CreateNewWallet = () => {
             <View style={styles.modalButtonContainer}>
               <TouchableOpacity
                 style={styles.buttonModal}
-                onPress={() => setOpenMainModel(false)}>
+                onPress={() => {
+                  setOpenMainModel(false);
+                  setOpenSecondMainModal(true);
+                }}>
                 <LinearGradient
                   colors={['#6EE7B7', '#3B82F6', '#9333EA']}
                   start={{ x: 0, y: 0 }}
@@ -277,7 +286,6 @@ const CreateNewWallet = () => {
                       style={styles.buttonModal}
                       onPress={() => {
                         setLaterModal(false);
-                        setLaterSecondModal(true);
                       }}>
                       <LinearGradient
                         colors={['#6EE7B7', '#3B82F6', '#9333EA']}
@@ -303,10 +311,17 @@ const CreateNewWallet = () => {
                 <View style={styles.modalContent}>
                   <Text style={styles.modalText}>Skip Account Security?</Text>
                   <TouchableOpacity
-                    onPress={() => setIsSecondTermsChecked(!isSecondTermsChecked)}
-                    style={[styles.checkboxContainer, {paddingHorizontal: 20}]}>
+                    onPress={() =>
+                      setIsSecondTermsChecked(!isSecondTermsChecked)
+                    }
+                    style={[
+                      styles.checkboxContainer,
+                      { paddingHorizontal: 20 },
+                    ]}>
                     <Ionicons
-                      name={isSecondTermsChecked ? 'checkbox' : 'square-outline'}
+                      name={
+                        isSecondTermsChecked ? 'checkbox' : 'square-outline'
+                      }
                       size={24}
                       color={isSecondTermsChecked ? '#6B50E1' : '#ccc'}
                     />
@@ -317,55 +332,265 @@ const CreateNewWallet = () => {
                   </TouchableOpacity>
                   <View style={styles.modalButtonsContainer}>
                     <TouchableOpacity
-                        style={styles.buttonsModal}
-                        disabled={isSecondTermsChecked}
-                    >
+                      style={styles.buttonsModal}
+                      disabled={isSecondTermsChecked}
+                      onPress={() => {
+                        setLaterSecondModal(false);
+                        setOpenMainModel(false);
+                        navigation.navigate('SeedPhrase');
+                      }}>
                       <LinearGradient
-                          colors={
-                            isSecondTermsChecked
-                                ? ['#555', '#555']
-                                : ['#6EE7B7', '#3B82F6', '#9333EA']
-                          }
-                          start={{ x: 0, y: 0 }}
-                          end={{ x: 1, y: 1 }}
-                          style={[
-                            styles.buttonGradient,
-                            {
-                              opacity:
-                                  isSecondTermsChecked
-                                      ? 0.5
-                                      : 1,
-                            },
-                          ]}>
+                        colors={
+                          isSecondTermsChecked
+                            ? ['#555', '#555']
+                            : ['#6EE7B7', '#3B82F6', '#9333EA']
+                        }
+                        start={{ x: 0, y: 0 }}
+                        end={{ x: 1, y: 1 }}
+                        style={[
+                          styles.buttonGradient,
+                          {
+                            opacity: isSecondTermsChecked ? 0.5 : 1,
+                          },
+                        ]}>
                         <Text style={styles.buttonText}>Secure Now</Text>
                       </LinearGradient>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        style={styles.buttonsModal}
-                        disabled={!isSecondTermsChecked}
-                        onPress={() => {
-                          setOpenMainModel(false);
-                          setLaterSecondModal(false);
-                          navigation.navigate('Tabs' as never);
-                        }}
-                       >
+                      style={styles.buttonsModal}
+                      disabled={!isSecondTermsChecked}
+                      onPress={() => {
+                        setOpenMainModel(false);
+                        setLaterSecondModal(false);
+                        navigation.navigate('Tabs' as never);
+                      }}>
                       <LinearGradient
-                          colors={
-                            isSecondTermsChecked
-                                ? ['#6EE7B7', '#3B82F6', '#9333EA']
-                                : ['#555', '#555']
-                          }
-                          start={{ x: 0, y: 0 }}
-                          end={{ x: 1, y: 1 }}
-                          style={[
-                            styles.buttonGradient,
-                            {
-                              opacity:
-                                  isSecondTermsChecked
-                                      ? 1
-                                      : 0.5,
-                            },
-                          ]}>
+                        colors={
+                          isSecondTermsChecked
+                            ? ['#6EE7B7', '#3B82F6', '#9333EA']
+                            : ['#555', '#555']
+                        }
+                        start={{ x: 0, y: 0 }}
+                        end={{ x: 1, y: 1 }}
+                        style={[
+                          styles.buttonGradient,
+                          {
+                            opacity: isSecondTermsChecked ? 1 : 0.5,
+                          },
+                        ]}>
+                        <Text style={styles.buttonText}>Skip</Text>
+                      </LinearGradient>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </Modal>
+            </>
+          )}
+        </Modal>
+      )}
+      {openSecondMainModal && (
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={openSecondMainModal}
+          onRequestClose={() => setOpenSecondMainModal(false)}>
+          <View style={styles.mainModalContent}>
+            <View style={styles.secondMainModalTop}>
+              <TouchableOpacity
+                style={styles.arrowBackModal}
+                onPress={() => {
+                  setOpenSecondMainModal(false);
+                  setOpenMainModel(true);
+                }}>
+                <ArrowBackSvg />
+              </TouchableOpacity>
+              <Text style={styles.modalText}>Secure Your Wallet</Text>
+            </View>
+            <View style={styles.seedPhrasewhyImportant}>
+              <Text style={{ color: '#ABABB0' }}>
+                Secure your wallet's "
+                <TouchableOpacity
+                  onPress={() => {
+                    setLaterModal(true);
+                  }}>
+                  <Text style={{ color: '#0B6FFB' }}>Seed Phrase</Text>
+                </TouchableOpacity>
+                "
+              </Text>
+              <TouchableOpacity
+                style={styles.whyImportant}
+                onPress={() => {
+                  setLaterSecondModal(true);
+                }}>
+                <InformationSvg />
+                <Text style={{ color: '#0B6FFB' }}>Why is it important?</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.informationModalBlock}>
+              <View style={styles.informationModalBlockTop}>
+                <Text style={styles.modalText}>Manual</Text>
+                <Text style={styles.modalText}>
+                  Security Level:{' '}
+                  <Text style={{ color: '#6AD598' }}>Very Strong</Text>
+                </Text>
+              </View>
+              <Text style={{ color: '#ABABB0' }}>
+                Write down your seed phrase on a piece of paper and store in a
+                safe place.
+              </Text>
+              <Text style={{ color: '#ABABB0', marginVertical: 20 }}>
+                Risks are:{`\n`}• You lose it{`\n`}• You forget where you put it
+                {`\n`}• Someone else finds it
+              </Text>
+            </View>
+            <View style={styles.informationModalBlock}>
+              <View style={styles.informationModalBlockTop}>
+                <Text style={styles.modalText}>
+                  Other options: Doesn't have to be paper!
+                </Text>
+              </View>
+              <Text style={{ color: '#ABABB0', marginBottom: 20 }}>
+                Tips:{`\n`}• Store in bank vault{`\n`}• Store in a safe{`\n`}•
+                Store in multiple secret places
+              </Text>
+            </View>
+            <View style={[styles.modalButtonContainer, { marginTop: 40 }]}>
+              <TouchableOpacity
+                style={styles.buttonModal}
+                onPress={() => {
+                  navigation.navigate('SeedPhrase');
+                }}>
+                <LinearGradient
+                  colors={['#6EE7B7', '#3B82F6', '#9333EA']}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 1 }}
+                  style={styles.buttonGradient}>
+                  <Text style={styles.buttonText}>Next</Text>
+                </LinearGradient>
+              </TouchableOpacity>
+            </View>
+          </View>
+          {laterModal && (
+            <>
+              <BlurView intensity={50} style={styles.blurBg} />
+              <Modal
+                animationType="slide"
+                transparent={true}
+                visible={laterModal}
+                onRequestClose={() => setLaterModal(false)}>
+                <View style={styles.modalContent}>
+                  <Text style={styles.modalText}>What is a "Seed Phrase"</Text>
+                  <Text style={styles.modalDescription}>
+                    A seed phrase is a set of twelve words that contains all the
+                    information about your wallet, including your funds. It's
+                    like a secret code used to access your entire wallet.
+                    {`\n\n`}
+                    You must keep your seed phrase secret and safe. If someone
+                    gets your seed phrase, they'll gain control over your
+                    accounts.
+                    {`\n\n`}
+                    Save it in a place where only you can access it.{`\n`}
+                    If you lose it, not even MetaMask can help you recover it.
+                  </Text>
+                  <View style={styles.modalButtonContainer}>
+                    <TouchableOpacity
+                      style={styles.buttonModal}
+                      onPress={() => {
+                        setLaterModal(false);
+                      }}>
+                      <LinearGradient
+                        colors={['#6EE7B7', '#3B82F6', '#9333EA']}
+                        start={{ x: 0, y: 0 }}
+                        end={{ x: 1, y: 1 }}
+                        style={styles.buttonGradient}>
+                        <Text style={styles.buttonText}>Understood</Text>
+                      </LinearGradient>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </Modal>
+            </>
+          )}
+          {laterSecondModal && (
+            <>
+              <BlurView intensity={50} style={styles.blurBg} />
+              <Modal
+                animationType="slide"
+                transparent={true}
+                visible={laterSecondModal}
+                onRequestClose={() => setLaterSecondModal(false)}>
+                <View style={styles.modalContent}>
+                  <Text style={styles.modalText}>Skip Account Security?</Text>
+                  <TouchableOpacity
+                    onPress={() =>
+                      setIsSecondTermsChecked(!isSecondTermsChecked)
+                    }
+                    style={[
+                      styles.checkboxContainer,
+                      { paddingHorizontal: 20 },
+                    ]}>
+                    <Ionicons
+                      name={
+                        isSecondTermsChecked ? 'checkbox' : 'square-outline'
+                      }
+                      size={24}
+                      color={isSecondTermsChecked ? '#6B50E1' : '#ccc'}
+                    />
+                    <Text style={styles.checkboxText}>
+                      I dunderstand that if i lose mt seed phrase i will not be
+                      able to access my wallet.
+                    </Text>
+                  </TouchableOpacity>
+                  <View style={styles.modalButtonsContainer}>
+                    <TouchableOpacity
+                      style={styles.buttonsModal}
+                      disabled={isSecondTermsChecked}
+                      onPress={() => {
+                        setLaterSecondModal(false);
+                        setOpenMainModel(false);
+                        setOpenSecondMainModal(false);
+                        navigation.navigate('SeedPhrase');
+                      }}>
+                      <LinearGradient
+                        colors={
+                          isSecondTermsChecked
+                            ? ['#555', '#555']
+                            : ['#6EE7B7', '#3B82F6', '#9333EA']
+                        }
+                        start={{ x: 0, y: 0 }}
+                        end={{ x: 1, y: 1 }}
+                        style={[
+                          styles.buttonGradient,
+                          {
+                            opacity: isSecondTermsChecked ? 0.5 : 1,
+                          },
+                        ]}>
+                        <Text style={styles.buttonText}>Secure Now</Text>
+                      </LinearGradient>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={styles.buttonsModal}
+                      disabled={!isSecondTermsChecked}
+                      onPress={() => {
+                        setOpenMainModel(false);
+                        setLaterSecondModal(false);
+                        setOpenSecondMainModal(false);
+                        navigation.navigate('Tabs' as never);
+                      }}>
+                      <LinearGradient
+                        colors={
+                          isSecondTermsChecked
+                            ? ['#6EE7B7', '#3B82F6', '#9333EA']
+                            : ['#555', '#555']
+                        }
+                        start={{ x: 0, y: 0 }}
+                        end={{ x: 1, y: 1 }}
+                        style={[
+                          styles.buttonGradient,
+                          {
+                            opacity: isSecondTermsChecked ? 1 : 0.5,
+                          },
+                        ]}>
                         <Text style={styles.buttonText}>Skip</Text>
                       </LinearGradient>
                     </TouchableOpacity>
@@ -556,7 +781,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     position: 'absolute',
     bottom: 0,
-    //height: '85%',
   },
   modalText: {
     marginTop: 20,
@@ -612,6 +836,34 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingHorizontal: 20,
     marginTop: 80,
+  },
+  secondMainModalTop: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  arrowBackModal: {
+    position: 'absolute',
+    left: '-25%',
+  },
+  seedPhrasewhyImportant: {
+    alignItems: 'center',
+  },
+  whyImportant: {
+    marginTop: 15,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  informationModalBlock: {
+    backgroundColor: '#1C1924',
+    borderRadius: 20,
+    paddingHorizontal: 20,
+    width: '94%',
+    flexDirection: 'column',
+    marginTop: 30,
+  },
+  informationModalBlockTop: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });
 
