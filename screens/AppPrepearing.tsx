@@ -26,7 +26,7 @@ const AppPrepearing = () => {
 
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate('Tabs')}>
+          onPress={() => navigation.navigate('CreateNewWallet')}>
           <LinearGradient
             colors={['#6EE7B7', '#3B82F6', '#9333EA']}
             start={{ x: 0, y: 0 }}

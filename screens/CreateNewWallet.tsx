@@ -25,6 +25,7 @@ const CreateNewWallet = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isFaceIdEnabled, setIsFaceIdEnabled] = useState(false);
   const [isTermsChecked, setIsTermsChecked] = useState(false);
+  const [isSecondTermsChecked, setIsSecondTermsChecked] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [passwordSecondVisible, setPasswordSecondVisible] = useState(false);
   const [passwordStrength, setPasswordStrength] = useState('Weak');
@@ -302,46 +303,70 @@ const CreateNewWallet = () => {
                 <View style={styles.modalContent}>
                   <Text style={styles.modalText}>Skip Account Security?</Text>
                   <TouchableOpacity
-                    onPress={() => setIsTermsChecked(!isTermsChecked)}
-                    style={styles.checkboxContainer}>
+                    onPress={() => setIsSecondTermsChecked(!isSecondTermsChecked)}
+                    style={[styles.checkboxContainer, {paddingHorizontal: 20}]}>
                     <Ionicons
-                      name={isTermsChecked ? 'checkbox' : 'square-outline'}
+                      name={isSecondTermsChecked ? 'checkbox' : 'square-outline'}
                       size={24}
-                      color={isTermsChecked ? '#6B50E1' : '#ccc'}
+                      color={isSecondTermsChecked ? '#6B50E1' : '#ccc'}
                     />
                     <Text style={styles.checkboxText}>
                       I dunderstand that if i lose mt seed phrase i will not be
                       able to access my wallet.
-                      <Text style={styles.learnMore}>Learn more</Text>
                     </Text>
                   </TouchableOpacity>
                   <View style={styles.modalButtonsContainer}>
                     <TouchableOpacity
-                      style={styles.buttonsModal}
-                      onPress={() => {
-                        setLaterModal(false);
-                        setLaterSecondModal(false);
-                      }}>
+                        style={styles.buttonsModal}
+                        disabled={isSecondTermsChecked}
+                    >
                       <LinearGradient
-                        colors={['#6EE7B7', '#3B82F6', '#9333EA']}
-                        start={{ x: 0, y: 0 }}
-                        end={{ x: 1, y: 1 }}
-                        style={styles.buttonGradient}>
-                        <Text style={styles.buttonText}>Understood</Text>
+                          colors={
+                            isSecondTermsChecked
+                                ? ['#555', '#555']
+                                : ['#6EE7B7', '#3B82F6', '#9333EA']
+                          }
+                          start={{ x: 0, y: 0 }}
+                          end={{ x: 1, y: 1 }}
+                          style={[
+                            styles.buttonGradient,
+                            {
+                              opacity:
+                                  isSecondTermsChecked
+                                      ? 0.5
+                                      : 1,
+                            },
+                          ]}>
+                        <Text style={styles.buttonText}>Secure Now</Text>
                       </LinearGradient>
                     </TouchableOpacity>
                     <TouchableOpacity
-                      style={styles.buttonsModal}
-                      onPress={() => {
-                        setLaterModal(false);
-                        setLaterSecondModal(false);
-                      }}>
+                        style={styles.buttonsModal}
+                        disabled={!isSecondTermsChecked}
+                        onPress={() => {
+                          setOpenMainModel(false);
+                          setLaterSecondModal(false);
+                          navigation.navigate('Tabs' as never);
+                        }}
+                       >
                       <LinearGradient
-                        colors={['#6EE7B7', '#3B82F6', '#9333EA']}
-                        start={{ x: 0, y: 0 }}
-                        end={{ x: 1, y: 1 }}
-                        style={styles.buttonGradient}>
-                        <Text style={styles.buttonText}>Understood</Text>
+                          colors={
+                            isSecondTermsChecked
+                                ? ['#6EE7B7', '#3B82F6', '#9333EA']
+                                : ['#555', '#555']
+                          }
+                          start={{ x: 0, y: 0 }}
+                          end={{ x: 1, y: 1 }}
+                          style={[
+                            styles.buttonGradient,
+                            {
+                              opacity:
+                                  isSecondTermsChecked
+                                      ? 1
+                                      : 0.5,
+                            },
+                          ]}>
+                        <Text style={styles.buttonText}>Skip</Text>
                       </LinearGradient>
                     </TouchableOpacity>
                   </View>
