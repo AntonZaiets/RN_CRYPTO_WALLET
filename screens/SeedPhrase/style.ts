@@ -176,4 +176,31 @@ export const styles = () =>
       padding: 20,
       borderRadius: 20,
     },
+    selectedWordBox: {
+      backgroundColor: '#1C1924',
+    },
+    selectedWordText: {
+      color: '#2F2A3C',
+    },
+    checkSvg: {
+      position: 'absolute',
+      top: '15%',
+      alignItems: 'center',
+      padding: 40,
+    },
+    checkTitle: {
+      color: '#FFFFFF',
+      fontWeight: 500,
+      fontSize: 18,
+      lineHeight: 28,
+      textAlign: 'center',
+      marginBottom: 20
+    },
+    checkDescription: {
+      color: '#A6A0BB',
+      fontWeight: 400,
+      fontSize: 14,
+      lineHeight: 24,
+      textAlign: 'center',
+    },
   });
