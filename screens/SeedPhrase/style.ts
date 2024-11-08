@@ -13,6 +13,7 @@ export const styles = () =>
     stepText: {
       color: '#fff',
       fontSize: 16,
+      marginRight: 20,
       marginLeft: 10,
     },
     progressContainer: {
@@ -46,7 +47,7 @@ export const styles = () =>
     container: {
       flex: 1,
       backgroundColor: '#09080C',
-      padding: 10,
+      padding: 20,
       alignItems: 'center',
     },
     title: {
@@ -129,5 +130,50 @@ export const styles = () =>
     buttonText: {
       color: '#fff',
       fontSize: 18,
+    },
+    confirmationContainer: {
+      alignItems: 'center',
+      marginVertical: 10,
+    },
+    instructionText: {
+      color: '#888888',
+      fontSize: 16,
+      marginBottom: 10,
+      textAlign: 'center',
+    },
+    wordIndicesContainer: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      marginVertical: 10,
+    },
+    indexBox: {
+      backgroundColor: '#2A2A2A',
+      borderRadius: 8,
+      padding: 10,
+      marginHorizontal: 5,
+      alignItems: 'center',
+    },
+    indexText: {
+      color: '#FFFFFF',
+      fontSize: 16,
+    },
+    wordSelection: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      justifyContent: 'center',
+      marginTop: 20,
+    },
+    errorText: {
+      color: 'red',
+      textAlign: 'center',
+      marginVertical: 50,
+    },
+    optionalContainer: {
+      padding: 20,
+    },
+    chosenWords: {
+      backgroundColor: '#131118',
+      padding: 20,
+      borderRadius: 20,
     },
   });
