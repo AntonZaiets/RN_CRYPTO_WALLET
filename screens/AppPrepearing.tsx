@@ -16,7 +16,11 @@ const AppPrepearing = () => {
   return (
     <ImageBackground source={BackgroundImage} style={styles.background}>
       <SafeAreaView style={styles.container}>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            navigation.navigate('ImportSeed' as never);
+          }}>
           <LinearGradient
             colors={['#1C1924', '#1C1924']}
             style={styles.buttonGradient}>
@@ -26,7 +30,7 @@ const AppPrepearing = () => {
 
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate('CreateNewWallet')}>
+          onPress={() => navigation.navigate('CreateNewWallet' as never)}>
           <LinearGradient
             colors={['#6EE7B7', '#3B82F6', '#9333EA']}
             start={{ x: 0, y: 0 }}

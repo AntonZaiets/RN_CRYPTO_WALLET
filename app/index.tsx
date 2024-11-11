@@ -9,6 +9,7 @@ import SeedPhrase from '../screens/SeedPhrase/SeedPhrase.tsx';
 import CreateNewWallet from '../screens/CreateNewWallet';
 import { Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import ImportSeed from "@/screens/ImportSeed";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -92,6 +93,11 @@ export default function Index() {
       <Stack.Screen
         name="SeedPhrase"
         component={SeedPhrase}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ImportSeed"
+        component={ImportSeed}
         options={{ headerShown: false }}
       />
       <Stack.Screen
