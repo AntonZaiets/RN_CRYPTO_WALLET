@@ -6,6 +6,7 @@ export const styles = () =>
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
+      marginBottom: '15%',
     },
     switchLabel: {
       color: '#fff',
@@ -41,10 +42,12 @@ export const styles = () =>
       padding: 5,
     },
     mainView: {
+      flex: 1,
       padding: 20,
+      justifyContent: 'space-between',
+      flexDirection: 'column',
     },
     buttonContainer: {
-      justifyContent: 'flex-end',
       alignItems: 'center',
     },
     button: {

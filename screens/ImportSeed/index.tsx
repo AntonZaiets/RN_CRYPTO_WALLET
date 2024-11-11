@@ -58,58 +58,54 @@ const ImportSeed = () => {
   return (
     <SafeAreaView style={style.container}>
       <View style={style.mainView}>
-        <Text style={style.headText}>Import From Seed</Text>
-        <View style={style.inputContainer}>
-          <TextInput
-            style={style.input}
-            placeholder="New Password"
-            placeholderTextColor="#666"
-            secureTextEntry={!seedVisible}
-            onChangeText={handlePasswordChange}
-            value={seed}
-          />
-          <TouchableOpacity
-            onPress={togglePasswordVisibility}
-            style={style.icon}>
-            <Ionicons
-              name={seedVisible ? 'eye-off' : 'eye'}
-              size={24}
-              color="#ccc"
+        <View>
+          <Text style={style.headText}>Import From Seed</Text>
+          <View style={style.inputContainer}>
+            <TextInput
+              style={style.input}
+              placeholder="Enter your Seed Phrase"
+              placeholderTextColor="#666"
+              secureTextEntry={!seedVisible}
+              onChangeText={handlePasswordChange}
+              value={seed}
             />
-          </TouchableOpacity>
+            <View></View>
+            <TouchableOpacity
+              onPress={togglePasswordVisibility}
+              style={style.icon}>
+              <Ionicons
+                name={seedVisible ? 'eye-off' : 'eye'}
+                size={24}
+                color="#ccc"
+              />
+            </TouchableOpacity>
+          </View>
         </View>
-        <View style={style.switchContainer}>
-          <Text style={style.switchLabel}>Sign in with Face ID?</Text>
-          <Switch
-            value={isFaceIdEnabled}
-            onValueChange={faceIdSwitcher}
-            trackColor={{ false: '#767577', true: '#4f94ef' }}
-            thumbColor={isFaceIdEnabled ? '#6B50E1' : '#f4f3f4'}
-          />
-        </View>
-        <View style={style.buttonContainer}>
-          <TouchableOpacity
-            style={style.button}
-            onPress={() => {
-              getSeedPhrase();
-            }}>
-            <LinearGradient
-              colors={
-                /*isTermsChecked &&
-                                                                                                                newPassword === confirmPassword &&
-                                                                                                                newPassword.length >= 8
-                                                                                                                  ? ['#6EE7B7', '#3B82F6', '#9333EA']
-                                                                                                                  :*/ [
-                  '#555',
-                  '#555',
-                ]
-              }
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 1 }}
-              style={[style.buttonGradient, { opacity: 1 }]}>
-              <Text style={style.buttonText}>Next</Text>
-            </LinearGradient>
-          </TouchableOpacity>
+        <View>
+          <View style={style.switchContainer}>
+            <Text style={style.switchLabel}>Sign in with Face ID?</Text>
+            <Switch
+              value={isFaceIdEnabled}
+              onValueChange={faceIdSwitcher}
+              trackColor={{ false: '#767577', true: '#4f94ef' }}
+              thumbColor={isFaceIdEnabled ? '#6B50E1' : '#f4f3f4'}
+            />
+          </View>
+          <View style={style.buttonContainer}>
+            <TouchableOpacity
+              style={style.button}
+              onPress={() => {
+                getSeedPhrase();
+              }}>
+              <LinearGradient
+                colors={['#6EE7B7', '#3B82F6', '#9333EA']}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={[style.buttonGradient, { opacity: 1 }]}>
+                <Text style={style.buttonText}>Import</Text>
+              </LinearGradient>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </SafeAreaView>
