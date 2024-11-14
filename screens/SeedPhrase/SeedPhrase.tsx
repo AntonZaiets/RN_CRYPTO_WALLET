@@ -232,18 +232,16 @@ const SeedPhraseGenerator = () => {
     const saveSeedPhrase = async (phrase: string[]) => {
         try {
             await AsyncStorage.setItem('seedPhrase', JSON.stringify(phrase));
-            console.log('Seed phrase saved successfully');
         } catch (error) {
-            console.error('Failed to save the seed phrase', error);
+
         }
     };
 
     const deleteSeedPhrase = async () => {
         try {
             await AsyncStorage.removeItem('seedPhrase');
-            console.log('Сід фразу видалено');
         } catch (error) {
-            console.error('Помилка при видаленні сід фрази:', error);
+
         }
     };
 
